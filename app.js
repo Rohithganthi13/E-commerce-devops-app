@@ -6,6 +6,7 @@ const shopRoutes = require("./routes/shop.js");
 const errorController = require("./controllers/error.js");
 const { mongoConnect } = require("./utils/database.js");
 const Users = require("./models/users.js");
+const mongoDb = require("mongodb");
 const app = express();
 
 app.set("view engine", "ejs");
@@ -15,13 +16,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  Users.findById("69706028a977ef485292eda8")
+  Users.findById("69a16129af5c48d05805e1c3")
     .then((user) => {
-      req.user = user;
+      if (user) {
+        req.user = new Users(user.name, user.email, user.cart, user._id);
+      }
       next();
     })
     .catch((err) => {
       console.log(err);
+      next();
     });
 });
 app.use("/admin", adminRoutes);
@@ -30,5 +34,19 @@ app.use(shopRoutes);
 app.use(errorController.pageNotFound);
 
 mongoConnect(() => {
-  app.listen(3000);
+  Users.findById("69a16129af5c48d05805e1c3")
+    .then((user) => {
+      if (!user) {
+        const newUser = new Users(
+          "Test User",
+          "test@test.com",
+          { items: [] },
+          new mongoDb.ObjectId("69a16129af5c48d05805e1c3")
+        );
+        return newUser.save();
+      }
+    })
+    .then(() => {
+      app.listen(3000);
+    });
 });
