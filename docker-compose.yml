@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: shopsy:latest
+    image: e-commerce-node-app:latest
     ports:
       - 3000:3000
     env_file: .env  
