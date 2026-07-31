@@ -16,6 +16,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
+  
+  if(req.path === "/health"){
+    return next();
+  }
+
   Users.findById("69a16129af5c48d05805e1c3")
     .then((user) => {
       if (user) {
@@ -30,6 +35,12 @@ app.use((req, res, next) => {
 });
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
+
+app.get("/health",(req,res)=>{
+  res.status(200).json({
+    status: "healthy"
+  })
+})
 
 app.use(errorController.pageNotFound);
 
