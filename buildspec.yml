@@ -1,0 +1,19 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - "Logging into the ECR..."
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com 
+
+  build:
+    commands:
+      - echo "Building docker image of the application...."
+      - docker build -t e-commerce-node-app .
+
+  post_build:
+    commands:
+      - echo "Tagging the docker image..."
+      - docker tag e-commerce-node-app:latest $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/e-commerce-node-app:latest
+      - echo "Pusihng the docker image to the ecr repository..."
+      - docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/e-commerce-node-app:latest
+          
