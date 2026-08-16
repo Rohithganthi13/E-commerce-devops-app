@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: e-commerce-node-app:latest
+    ports:
+      - 3000:3000
+    env_file: .env  

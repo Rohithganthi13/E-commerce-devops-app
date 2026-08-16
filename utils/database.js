@@ -6,7 +6,7 @@ dotenv.config();
 const MongoClient = mongoDb.MongoClient;
 
 let _db;
-const mongodb = process.env.MONGO_URL || "mongodb://admin:password@localhost:27017"
+const mongodb = process.env.MONGO_URL ;
 const mongoConnect = (callback) => {
   MongoClient.connect(mongodb)
     .then((client) => {
