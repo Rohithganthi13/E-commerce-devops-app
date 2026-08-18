@@ -5,7 +5,7 @@ phases:
       - echo "Logging into the ECR..."
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
       - export IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - export IMAGE_URI==$ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/e-commerce-node-app:$IMAGE_TAG
+      - export IMAGE_URI=$ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/e-commerce-node-app:$IMAGE_TAG
       - echo "IMAGE URI: $IMAGE_URI"
 
   build:
