@@ -19,8 +19,8 @@ phases:
       - 'docker tag e-commerce-node-app:latest $IMAGE_URI'
       - 'echo "Pushing the docker image to the ecr repository..."'
       - 'docker push $IMAGE_URI'
-      - 'echo "Generatimg imagedefinitions.json ...."'
-      - 'printf '[{"name":"shopsphere-app","imageUri":"%s"}]' "$IMAGE_URI" > imagedefinitions.json'
+      - 'echo "Generating imagedefinitions.json ...."'
+      - "printf '[{\"name\":\"shopsphere-app\",\"imageUri\":\"%s\"}]' \"$IMAGE_URI\" > imagedefinitions.json"
       - 'cat imagedefinitions.json'
 artifacts:
   files:
