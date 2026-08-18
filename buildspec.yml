@@ -2,26 +2,26 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo "Logging into the ECR..."
-      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
-      - export IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - export IMAGE_URI=$ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/e-commerce-node-app:$IMAGE_TAG
-      - echo "IMAGE URI: $IMAGE_URI"
+      - 'echo "Logging into the ECR..."'
+      - 'aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com'
+      - 'export IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)'
+      - 'export IMAGE_URI=$ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/e-commerce-node-app:$IMAGE_TAG'
+      - 'echo "IMAGE URI: $IMAGE_URI"'
 
   build:
     commands:
-      - echo "Building docker image of the application...."
-      - docker build -t e-commerce-node-app .
+      - 'echo "Building docker image of the application...."'
+      - 'docker build -t e-commerce-node-app .'
 
   post_build:
     commands:
-      - echo "Tagging the docker image..."
-      - docker tag e-commerce-node-app:latest $IMAGE_URI
-      - echo "Pushing the docker image to the ecr repository..."
-      - docker push $IMAGE_URI
-      - echo "Generatimg imagedefinitions.json ...."
-      - printf '[{"name":"shopsphere-app","imageUri":"%s"}]' "$IMAGE_URI" > imagedefinitions.json
-      - cat imagedefinitions.json
+      - 'echo "Tagging the docker image..."'
+      - 'docker tag e-commerce-node-app:latest $IMAGE_URI'
+      - 'echo "Pushing the docker image to the ecr repository..."'
+      - 'docker push $IMAGE_URI'
+      - 'echo "Generatimg imagedefinitions.json ...."'
+      - 'printf '[{"name":"shopsphere-app","imageUri":"%s"}]' "$IMAGE_URI" > imagedefinitions.json'
+      - 'cat imagedefinitions.json'
 artifacts:
   files:
     - imagedefinitions.json
