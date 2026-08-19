@@ -1,0 +1,157 @@
+.orders-title {
+  text-align: center;
+  color: #00695c;
+  margin: 1.5rem 0 2rem;
+  font-size: 1.8rem;
+}
+
+/* Empty state */
+.orders-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  color: #555;
+  text-align: center;
+}
+
+.orders-empty svg {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.orders-empty h2 {
+  font-size: 1.4rem;
+  margin: 0 0 0.5rem;
+  color: #333;
+}
+
+.orders-empty p {
+  margin: 0 0 1.5rem;
+  color: #777;
+}
+
+/* Orders list */
+.orders-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 700px;
+}
+
+/* Individual order card */
+.order-card {
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.order-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #00695c;
+  color: white;
+  padding: 0.75rem 1rem;
+}
+
+.order-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.order-badge {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.order-date {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.order-status {
+  font-size: 0.78rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 0.2rem 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Order items */
+.order-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-item__img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.order-item__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.order-item__title {
+  font-weight: 600;
+  color: #222;
+  font-size: 0.95rem;
+}
+
+.order-item__price {
+  font-size: 0.85rem;
+  color: #00695c;
+}
+
+.order-item__qty {
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Order footer */
+.order-card__footer {
+  padding: 0.75rem 1rem;
+  background: #f9f9f9;
+  border-top: 1px solid #e0e0e0;
+  text-align: right;
+}
+
+.order-total {
+  font-size: 1rem;
+  color: #333;
+}
+
+.order-total strong {
+  color: #00695c;
+  font-size: 1.1rem;
+}

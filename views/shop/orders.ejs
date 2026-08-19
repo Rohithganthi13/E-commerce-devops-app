@@ -1,26 +1,69 @@
 <%- include('../includes/head.ejs') %>
     <link rel="stylesheet" href="/css/product.css" />
+    <link rel="stylesheet" href="/css/orders.css" />
   </head>
 
   <body>
     <%- include('../includes/navigation.ejs') %>
     <main>
-      <% if(orders.length <= 0 ){ %>
-        <h1>Nothing here</h1>
-     <% } else { %> 
-      <ul>
-        <% orders.forEach(order => { %>
-          <li>
-            <h1># <%= order.id %></h1>
-            <ul>
-              <% order.products.forEach((product)=>{ %> 
-              <li><%= product.title %> (<%= product.orderItem.quantity %>)</li>
+      <h1 class="orders-title">Your Orders</h1>
+
+      <% if (orders.length <= 0) { %>
+        <div class="orders-empty">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="#00695c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="14" width="44" height="50" rx="3"/>
+            <polyline points="22 14 22 6 42 6 42 14"/>
+            <line x1="22" y1="32" x2="42" y2="32"/>
+            <line x1="22" y1="42" x2="35" y2="42"/>
+          </svg>
+          <h2>No orders yet</h2>
+          <p>You haven't placed any orders. Start shopping!</p>
+          <a href="/products" class="btn">Browse Products</a>
+        </div>
+      <% } else { %>
+        <ul class="orders-list">
+          <% orders.forEach((order, idx) => { %>
+            <li class="order-card card">
+              <header class="order-card__header">
+                <div class="order-card__meta">
+                  <span class="order-badge">#<%= String(idx + 1).padStart(4, '0') %></span>
+                  <% if (order.createdAt) { %>
+                    <span class="order-date">
+                      <%= new Date(order.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+                    </span>
+                  <% } %>
+                </div>
+                <span class="order-status">Completed</span>
+              </header>
+
+              <ul class="order-items">
+                <% order.items.forEach((item) => { %>
+                  <li class="order-item">
+                    <% if (item.imageUrl) { %>
+                      <img class="order-item__img" src="<%= item.imageUrl %>" alt="<%= item.title %>" />
+                    <% } %>
+                    <div class="order-item__info">
+                      <span class="order-item__title"><%= item.title %></span>
+                      <% if (item.price) { %>
+                        <span class="order-item__price">$<%= Number(item.price).toFixed(2) %></span>
+                      <% } %>
+                    </div>
+                    <span class="order-item__qty">x<%= item.quantity %></span>
+                  </li>
                 <% }) %>
-            </ul>
-          </li>
-        <% }) %>
-      </ul>
-    <% } %>
-        
+              </ul>
+
+              <% 
+                const total = order.items.reduce((sum, item) => {
+                  return sum + (Number(item.price) || 0) * (item.quantity || 1);
+                }, 0);
+              %>
+              <footer class="order-card__footer">
+                <span class="order-total">Total: <strong>$<%= total.toFixed(2) %></strong></span>
+              </footer>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
     </main>
     <%- include('../includes/end.ejs') %>
