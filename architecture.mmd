@@ -1,0 +1,20 @@
+flowchart TB
+    Dev[Developer] -->|git push| GitHub[GitHub]
+    GitHub --> CP[CodePipeline]
+    CP --> Source[Source Stage]
+    Source --> CB[CodeBuild]
+    CB --> Push[Docker build, tag and push]
+    Push --> ECR[(Amazon ECR)]
+    CB --> Artifact[imagedefinitions.json]
+    ECR --> ECS[ECS Service]
+    Artifact --> ECS
+    ECS --> T1[Fargate Task 1]
+    ECS --> T2[Fargate Task 2]
+    T1 --> TG[Target Group\nHTTP :3000\n/health]
+    T2 --> TG
+    TG --> ALB[Application Load Balancer\nHTTP :80]
+    ALB --> Users[Users]
+    T1 --> Atlas[(MongoDB Atlas)]
+    T2 --> Atlas
+    Logs[CloudWatch Logs] --- T1
+    Logs --- T2
