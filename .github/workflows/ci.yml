@@ -4,4 +4,7 @@ jobs:
   sample:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "GitHub Actions CI started"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: say hello
+        run: echo "Github Actions CI started"
