@@ -6,5 +6,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: say hello
-        run: echo "Github Actions CI started"
+      - name: Setup node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Print node version 
+        run: node --version
