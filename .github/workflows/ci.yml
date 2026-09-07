@@ -16,3 +16,5 @@ jobs:
         run: node --version
       - name: Run tests
         run: npm test
+      - name: Docker build
+        run: docker build -t node-app .
