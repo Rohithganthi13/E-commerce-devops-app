@@ -20,7 +20,9 @@ jobs:
       - name: Run tests
         run: npm test
       - name: Debug OIDC claims
-        run: github/actions-oidc-debugger@main
+        uses: github/actions-oidc-debugger@main
+        with:
+          audience: sts.amazonaws.com
       - name: AWS credentials configuration
         uses: aws-actions/configure-aws-credentials@v5
         with:
