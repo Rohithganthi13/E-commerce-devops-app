@@ -1,5 +1,8 @@
 name: CI workflow
 on: [push]
+permissions:
+  id-token: write
+  contents: read
 jobs:
   sample:
     runs-on: ubuntu-latest
@@ -16,5 +19,15 @@ jobs:
         run: node --version
       - name: Run tests
         run: npm test
+      - name: AWS credentials configuration
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: arn:aws:iam::047719635525:role/GitHubActions-ECR-Push-Role
+          aws-region: ap-south-1
+      - name: verify aws
+        run: aws sts get-caller-identity
       - name: Docker build
         run: docker build -t node-app .
+      
+        
+
