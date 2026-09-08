@@ -19,6 +19,8 @@ jobs:
         run: node --version
       - name: Run tests
         run: npm test
+      - name: Debug OIDC claims
+        run: github/actions-oidc-debugger@main
       - name: AWS credentials configuration
         uses: aws-actions/configure-aws-credentials@v5
         with:
