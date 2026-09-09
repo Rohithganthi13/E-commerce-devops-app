@@ -28,6 +28,8 @@ jobs:
         run: aws sts get-caller-identity
       - name: Docker build
         run: docker build -t node-app .
+      - name: github-sha
+        run: echo github.sha
       
         
 
