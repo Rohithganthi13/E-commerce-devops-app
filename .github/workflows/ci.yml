@@ -28,8 +28,10 @@ jobs:
         run: aws sts get-caller-identity
       - name: Docker build
         run: docker build -t node-app .
-      - name: github-sha
-        run: echo github.sha
-      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Tag the image
+        run: docker tag node-app 047719635525.dkr.ecr.ap-south-1.amazonaws.com/node-app:${{ github.sha }}
         
 
