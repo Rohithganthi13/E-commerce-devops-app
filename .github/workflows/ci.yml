@@ -22,7 +22,7 @@ jobs:
       - name: AWS credentials configuration
         uses: aws-actions/configure-aws-credentials@v5
         with:
-          role-to-assume: arn:aws:iam::047719635525:role/GitHubActions-ECR-Push-Role
+          role-to-assume: arn:aws:iam::098981325170:role/GitHubActions-ECR-Push-Role
           aws-region: ap-south-1
       - name: verify aws
         run: aws sts get-caller-identity
@@ -32,8 +32,8 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
       - name: Tag the image
-        run: docker tag node-app 047719635525.dkr.ecr.ap-south-1.amazonaws.com/node-app:${{ github.sha }}
+        run: docker tag node-app 098981325170.dkr.ecr.ap-south-1.amazonaws.com/node-app:${{ github.sha }}
       - name: Push image
-        run: docker push 047719635525.dkr.ecr.ap-south-1.amazonaws.com/node-app:${{ github.sha }}
+        run: docker push 098981325170.dkr.ecr.ap-south-1.amazonaws.com/node-app:${{ github.sha }}
         
 
