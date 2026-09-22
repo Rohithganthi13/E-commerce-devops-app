@@ -43,7 +43,7 @@
       "secrets": [
         {
           "name": "MONGO_URL",
-          "valueFrom": "arn:aws:secretsmanager:ap-south-1:098981325170:secret:ecommerce/MONGO_URL-vOOfvg"
+          "valueFrom": "arn:aws:secretsmanager:ap-south-1:098981325170:secret:ecommerce/MONGO_URL-vOOfvg:MONGO_URL::"
         }
       ]
     }
