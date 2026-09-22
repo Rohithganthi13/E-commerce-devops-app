@@ -35,5 +35,28 @@ jobs:
         run: docker tag node-app 098981325170.dkr.ecr.ap-south-1.amazonaws.com/node-app:${{ github.sha }}
       - name: Push image
         run: docker push 098981325170.dkr.ecr.ap-south-1.amazonaws.com/node-app:${{ github.sha }}
-        
+  deploy:
+    needs: sample
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Aws configuration
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: arn:aws:iam::098981325170:role/GitHubActions-ECS-Deploy-Role
+          aws-region: ap-south-1
+      - name: Render task definition
+        id: render-task-definition  
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ecs/task-definition.json
+          container-name: ecommerce-app-container
+          image: 098981325170.dkr.ecr.ap-south-1.amazonaws.com/node-app:${{ github.sha }}
+      - name: Deploy to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ steps.render-task-definition.outputs.task-definition }}
+          cluster: ecommerce-cluster
+          service: ecommerce-app-service
 

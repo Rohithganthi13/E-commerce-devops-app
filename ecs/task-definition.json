@@ -1,0 +1,61 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "ecommerce-app-container",
+      "image": "image",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp",
+          "name": "container-port-protocol",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "ulimits": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/ecommerce-app-task-definition",
+          "awslogs-create-group": "true",
+          "awslogs-region": "ap-south-1",
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "wget -q -O - http://localhost:3000/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 30
+      },
+      "systemControls": [],
+      "secrets": [
+        {
+          "name": "MONGO_URL",
+          "valueFrom": "arn:aws:secretsmanager:ap-south-1:098981325170:secret:ecommerce/MONGO_URL-vOOfvg"
+        }
+      ]
+    }
+  ],
+  "family": "ecommerce-app-task-definition",
+  "executionRoleArn": "arn:aws:iam::098981325170:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024"
+}
