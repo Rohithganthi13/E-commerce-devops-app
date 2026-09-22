@@ -1,0 +1,25 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css" />
+  </head>
+
+  <body>
+ <%- include('../includes/navigation.ejs') %>
+
+    <main>
+      <% if (errorMessage) { %>
+        <p class="user-message--error"><%= errorMessage %></p>
+      <% } %>
+      <form class="login-form" action="/login" method="POST">
+        <div class="form-control">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" required />
+        </div>
+        <div class="form-control">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" required />
+        </div>
+        <button class="btn" type="submit">Login</button>
+      </form>
+      <p>No account? <a href="/signup">Sign up</a></p>
+    </main>
+  <%- include('../includes/end.ejs') %>
