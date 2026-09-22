@@ -1,3 +1,6 @@
 node_modules
 .env
 data
+EPCC_PLAN.md
+EPCC_COMMIT.md
+EPCC_EXPLORE.md 
