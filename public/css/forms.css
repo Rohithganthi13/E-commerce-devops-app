@@ -21,3 +21,8 @@
 .form-control textarea:focus {
     outline-color: #00695c;
 }
+
+.user-message--error {
+    color: #c62828;
+    margin: 1rem 0;
+}
