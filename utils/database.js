@@ -12,10 +12,6 @@ const mongoConnect = (callback) => {
     .then((client) => {
       console.log("Connected!!");
       _db = client.db("shop");
-      _db
-        .collection("users")
-        .createIndex({ email: 1 }, { unique: true })
-        .catch((err) => console.log("Failed to create users.email index", err));
       callback();
     })
     .catch((err) => {

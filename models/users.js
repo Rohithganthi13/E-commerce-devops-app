@@ -1,12 +1,11 @@
 const mongoDb = require("mongodb");
 const { getDb } = require("../utils/database");
 class Users {
-  constructor(userName, userEmail, cart, id, password) {
+  constructor(userName, userEmail, cart, id) {
     this.name = userName;
     this.email = userEmail;
     this.cart = cart; // {items : []}
     this._id = id;
-    this.password = password;
   }
   save() {
     const db = getDb();
@@ -124,18 +123,6 @@ class Users {
     return db
       .collection("users")
       .find({ _id: new mongoDb.ObjectId(userId) })
-      .next()
-      .then((user) => {
-        return user;
-      })
-      .catch((err) => console.log(err));
-  }
-
-  static findByEmail(email) {
-    const db = getDb();
-    return db
-      .collection("users")
-      .find({ email: email })
       .next()
       .then((user) => {
         return user;
